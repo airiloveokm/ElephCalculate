@@ -10,12 +10,20 @@ $('#btnStartCalc').on('click', function(){
     var endIdx = parseInt($('#goalLank').val());
     var rateIdx = parseInt($('#rateVal').val());
     var rateMax = parseInt($('#rateMax').val());
+    var haveQnt = parseInt($('#haveSinmei').val());
 
     //Validation Check
     if(rateIdx < 5 && !rateMax)
     {
         $("#result").removeClass('collapse');
-        $('#result').text('交換レートが5個以下の場合、現在交換可能な数を確認して入力してください.');
+        $('#result').html('交換レートが5個以下の場合、<br />現在交換可能な数を確認して入力してください.');
+        return;
+    }
+    if(Number.isNaN(haveQnt))
+    {
+        $("#result").removeClass('collapse');
+        $('#result').html('所持神名数の入力が不正です.<br />入力内容を見直してください');
+        return;
     }
 
     //必要な神明数を計算する
@@ -26,11 +34,7 @@ $('#btnStartCalc').on('click', function(){
     }
 
     //所持している神明数を差し引く
-    var haveQnt = $('#haveSinmei').val();
-    if(haveQnt)
-    {
-        needQnt -= haveQnt;
-    }
+    needQnt -= haveQnt;
 
     //計算する
     var resQnt = 0;
@@ -61,4 +65,22 @@ $('#btnStartCalc').on('click', function(){
 
     $("#result").removeClass('collapse');
     $("#result").text("必要な神名のカケラ数は" + resQnt + "個です。")
-})
+});
+
+$('#rateMax').on('blur', function(){
+    var rateMax = parseInt($('#rateMax').val());
+    if(!rateMax)
+    {
+        //流れに任せる（あとでValidationチェックするし）
+        return;
+    }
+
+    if(rateMax > 20)
+    {
+        $('#rateMax').val('20');
+    }
+    if(rateMax < 0)
+    {
+        $('#rateMax').val('0');
+    }
+});

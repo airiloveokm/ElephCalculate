@@ -5,6 +5,7 @@
         <link href="css/style.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <meta name="viewport" content="width=device-width">
     </head>
     <body>
         <nav class="navbar bg-light">
@@ -55,8 +56,8 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="rate-val" class="col-sm-4 col-form-label">現在の交換レート</label>
-                <div class="col-sm-3">
+                <label for="rate-val" class="col-12 col-sm-4 col-form-label">現在の交換レート</label>
+                <div class="col-5 col-sm-3">
                     <select class="form-select" id="rateVal">
                         <option value="1" selected>1個</option>
                         <option value="2">2個</option>
@@ -65,7 +66,7 @@
                         <option value="5">5個</option>
                     </select>
                 </div>
-                <div class="col-sm-5">
+                <div class="col col-sm-5">
                     <div class="input-group">
                         <input type="number" class="form-control" id="rateMax" value="20" aria-describedby="gp1" max="20"/>
                         <span class="input-group-text" id="gp1">個交換可能</span>
