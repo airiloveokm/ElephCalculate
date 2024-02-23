@@ -13,6 +13,12 @@ $('#btnStartCalc').on('click', function(){
     var haveQnt = parseInt($('#haveSinmei').val());
 
     //Validation Check
+    if(startIdx >= endIdx)
+    {
+        $("#result").removeClass('collapse');
+        $('#result').html('生徒ランクの指定が不正です.');
+        return;
+    }
     if(rateIdx < 5 && !rateMax)
     {
         $("#result").removeClass('collapse');
@@ -67,6 +73,14 @@ $('#btnStartCalc').on('click', function(){
     $("#result").text("必要な神名のカケラ数は" + resQnt + "個です。")
 });
 
+$('#haveSinmei').on('blur', function(){
+    var haveQnt = parseInt($('#haveSinmei').val());
+    if(!haveQnt)
+    {
+        $('#haveSinmei').val(0);
+    }
+});
+
 $('#rateMax').on('blur', function(){
     var rateMax = parseInt($('#rateMax').val());
     if(!rateMax)
@@ -77,10 +91,22 @@ $('#rateMax').on('blur', function(){
 
     if(rateMax > 20)
     {
-        $('#rateMax').val('20');
+        $('#rateMax').val(20);
     }
     if(rateMax < 0)
     {
-        $('#rateMax').val('0');
+        $('#rateMax').val(0);
     }
 });
+
+$('#nowLank').on('change', function(){
+    var now = parseInt($('#nowLank').val());
+    var goal = parseInt($('#goalLank').val());
+
+    if(now >= goal)
+    {
+        //現在のランクと目標ランクが逆転した場合
+        //現在のランクの１つ上を自動的にセットする
+        $('#goalLank').val(now + 1);
+    }
+})
