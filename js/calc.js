@@ -16,19 +16,19 @@ $('#btnStartCalc').on('click', function(){
     if(startIdx >= endIdx)
     {
         $("#result").removeClass('collapse');
-        $('#result').html('生徒ランクの指定が不正です.');
+        $('#result').html('生徒ランクの指定が不正です。');
         return;
     }
     if(rateIdx < 5 && !rateMax)
     {
         $("#result").removeClass('collapse');
-        $('#result').html('交換レートが5個以下の場合、<br />現在交換可能な数を確認して入力してください.');
+        $('#result').html('交換レートが5個以下の場合、<br />現在交換可能な数を確認して入力してください。');
         return;
     }
     if(Number.isNaN(haveQnt))
     {
         $("#result").removeClass('collapse');
-        $('#result').html('所持神名数の入力が不正です.<br />入力内容を見直してください');
+        $('#result').html('所持神名数の入力が不正です。<br />入力内容を見直してください。');
         return;
     }
 
@@ -41,6 +41,13 @@ $('#btnStartCalc').on('click', function(){
 
     //所持している神明数を差し引く
     needQnt -= haveQnt;
+
+    if(needQnt <= 0)
+    {
+        $("#result").removeClass('collapse');
+        $("#result").text("神名を交換する必要はありません。");
+        return;
+    }
 
     //計算する
     var resQnt = 0;
@@ -70,7 +77,7 @@ $('#btnStartCalc').on('click', function(){
     }
 
     $("#result").removeClass('collapse');
-    $("#result").text("必要な神名のカケラ数は" + resQnt + "個です。")
+    $("#result").text("必要な神名のカケラ数は" + resQnt + "個です。");
 });
 
 $('#haveSinmei').on('blur', function(){
@@ -79,11 +86,16 @@ $('#haveSinmei').on('blur', function(){
     {
         $('#haveSinmei').val(0);
     }
+    else
+    {
+        //小数点その他不正入力対策ですべて整数にする
+        $('#haveSinmei').val(haveQnt);
+    }
 });
 
 $('#rateMax').on('blur', function(){
     var rateMax = parseInt($('#rateMax').val());
-    if(!rateMax)
+    if(Number.isNaN(rateMax))
     {
         //流れに任せる（あとでValidationチェックするし）
         return;
@@ -93,9 +105,13 @@ $('#rateMax').on('blur', function(){
     {
         $('#rateMax').val(20);
     }
-    if(rateMax < 0)
+    else if(rateMax < 0)
     {
         $('#rateMax').val(0);
+    }
+    else
+    {
+        $('#rateMax').val(rateMax);
     }
 });
 
